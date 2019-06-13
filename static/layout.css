@@ -1,0 +1,36 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  padding-top: 56px;
+}
+
+.card-deck {
+  margin-top: 10px;
+}
+
+.card {
+  width: 400px;
+}
+
+.card-title {
+  font-size: 3em;
+}
+
+.setting_form {
+  padding-top: 80px;
+}
+
+.ip_form {
+  padding-top: 80px;
+}
+
+.ipmgnt_table {
+  margin-top: 10px;
+}
+
+.hidden_field {
+  display: none;
+}

@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional/EN">
+<html>
+<head>
+    <style type="text/css">
+        body {
+            font-family: sans-selif;
+            font-size: 9pt;
+            line-height: 1;
+        }
+
+        .remark {
+            color: red;
+        }
+
+    </style>
+
+</head>
+<body>
+    <p>클린DNS로 우회된 유해DNS 중 다량의 IP가 무응답 상태입니다.
+        <br>상황근무자께서는 클린DNS 시스템을 점검하여 주시기 바랍니다.
+    </p>
+
+    <p class="remark">*** 해당 메일은 클린DNS 응답 모니터링 시스템에서 자동발송된 메일입니다. ***</p>
+
+    <b>무응답 DNS IP</b>
+    <table cellpadding="5" cellspacing="0" border="1">
+        <thead>
+        <tr>
+            <td width="200" style="border:1px gray solid; background:#C6D9F1"><b>IP</b></td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for data in datas %}
+        <tr>
+            <td style="border: 1px gray solid">{{ data.server }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </li>
+    </table>
+</body>
+</html>

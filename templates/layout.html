@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html lang="kr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    {% if title %}
+      <title>클린DNS 응답 모니터링 - {{ title }}</title>
+    {% else %}
+      <title>클린DNS 응답 모니터링</title>
+    {% endif %}
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+
+    <!-- Font awesome CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='all.css') }}">
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='layout.css') }}">
+    {% block stylesheet %}{% endblock %}
+  </head>
+
+  <body>
+    <header class="site-header">
+      <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark mb-4">
+        <a class="navbar-brand" href="{{ url_for('index') }}">클린DNS 응답 모니터링</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('index') }}">모니터링</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('ipmgnt') }}">IP 관리</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('settings') }}">설정</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <main role="main">
+    <!-- Main content block -->
+    {% block content %}{% endblock %}
+    </main>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{{ url_for('static', filename='jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='popper.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+
+    <!-- Font awesome -->
+    <script src="{{ url_for('static', filename='all.js') }}"></script>
+
+    <!-- Form Validator -->
+    <script type="text/javascript" src="{{ url_for('static', filename='jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='additional-methods.min.js') }}"></script>
+
+    <!-- Custom scripts -->
+    {% block scripts %}{% endblock %}
+  </body>
+</html>

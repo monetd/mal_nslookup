@@ -1,0 +1,80 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+{% for setting in settings %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <form id="setform" class="setting_form" action="{{ url_for('set') }}" method="POST">
+                <div class="form-group row">
+                    <label for="interval" class="col-sm-2 col-form-label">모니터링 주기</label>
+                    <div class="col-sm-7">
+                        <select class="custom-select" name="interval" id="interval">
+                            <option value="5000" {% if setting.interval==5000 %} selected="selected"{% endif %}>5초</option>
+                            <option value="10000" {% if setting.interval==10000  %} selected="selected"{% endif %}>10초</option>
+                            <option value="20000" {% if setting.interval==20000  %} selected="selected"{% endif %}>20초</option>
+                            <option value="30000" {% if setting.interval==30000  %} selected="selected"{% endif %}>30초</option>
+                            <option value="60000" {% if setting.interval==60000  %} selected="selected"{% endif %}>60초</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="lifetime" class="col-sm-2 col-form-label">Lifetime</label>
+                    <div class="col-sm-7">
+                        <select class="custom-select" name="lifetime" id="lifetime">
+                            <option value="1" {% if setting.lifetime==1 %} selected="selected"{% endif %}>1초</option>
+                            <option value="2" {% if setting.lifetime==2 %} selected="selected"{% endif %}>2초</option>
+                            <option value="3" {% if setting.lifetime==3 %} selected="selected"{% endif %}>3초</option>
+                        	<option value="4" {% if setting.lifetime==4 %} selected="selected"{% endif %}>4초</option>
+							<option value="5" {% if setting.lifetime==5 %} selected="selected"{% endif %}>5초</option>
+						</select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="lookup_url" class="col-sm-2 col-form-label">Test URL</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control" name="lookup_url" id="lookup_url" value="{{setting.lookup_url}}" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-2">Mailing</div>
+                    <div class="col-sm-5">
+                        <div class="form-check">
+                            {% if setting.mailing == 1 %}
+                            <input class="form-check-input" type="checkbox" name="mailing" value="1" id="mailing" checked>
+                            {% else %}
+                            <input class="form-check-input" type="checkbox" name="mailing" value="1" id="mailing">
+                            {% endif %}
+                            <label class="form-check-label" for="mailing">
+                                메일링 사용
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="form-check">
+                            {% if setting.sound == 1 %}
+                            <input class="form-check-input" type="checkbox" name="sound" value="1" id="sound" checked>
+                            {% else %}
+                            <input class="form-check-input" type="checkbox" name="sound" value="1" id="sound">
+                            {% endif %}
+                            <label class="form-check-label" for="sound">
+                                경보음 사용
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-9">
+                        <button type="submit" class="btn btn-primary float-right">확인</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='form_valid.js') }}"></script>
+{% endblock %}

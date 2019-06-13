@@ -1,0 +1,60 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <form id="ipform" class="form-inline ip_form" action="{{ url_for('add') }}" method="POST">
+                <div class="form-group">
+                    <label for="ipaddress">Lookup IP</label>
+                    <input type="text" id="ipaddress" name="ip" class="form-control mx-sm-3" required>
+                    <span id="validate_ip"></span>
+                    <div class="mx-sm-3">
+                        <button type="submit" id="add_ip" class="btn btn-dark float-right" disabled="true">추가</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <table class="table table-sm ipmgnt_table">
+                <thead>
+                <tr>
+                    <th scope="col">우회 IP</th>
+                    <th scope="col">등록일자</th>
+                    <th scope="col">최근 응답일자</th>
+                    <th scope="col">응답여부</th>
+                    <th scope="col">삭제</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for post in posts %}
+                <tr>
+                    <td>{{ post.server }}</td>
+                    <td>{{ post.reg_date.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                    <td>{{ post.resp_date.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                    <td>
+                        {% if post.status == 'true' %}
+                        <img class="rounded-circle mx-auto" src="{{ url_for('static', filename='green.png') }}"
+                             width="32px" height="32px">
+                        {% else %}
+                        <img class="rounded-circle mx-auto" src="{{ url_for('static', filename='red.png') }}"
+                             width="32px" height="32px">
+                        {% endif %}
+                    </td>
+                    <td><a href="{{ url_for('delete', id=post.id) }}">삭제</a></td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='form_valid.js') }}"></script>
+{% endblock %}
