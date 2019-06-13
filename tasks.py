@@ -2,6 +2,7 @@
 #-*- coding:utf-8 -*-
 import sqlite3
 import dns.resolver
+import time
 
 conn = sqlite3.connect("site.db")
 my_resolver = dns.resolver.Resolver()
@@ -23,6 +24,7 @@ with conn:
 
     for row in rows:
         my_resolver.nameservers = [row[1]]
+        time.sleep(0.1)
 
         try:
             response = my_resolver.query(lookup_url, 'A')
