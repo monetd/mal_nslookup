@@ -6,11 +6,6 @@ from datetime import datetime
 from flask import Flask, flash, render_template, request, redirect, Response
 from flask_sqlalchemy import SQLAlchemy
 import jsonpickle
-import os
-from sendMail import sendMail
-from jinja2 import Environment, FileSystemLoader
-THIS_DIR = os.path.dirname(os.path.abspath(__file__))
-j2_env = Environment(loader=FileSystemLoader(THIS_DIR))
 
 app = Flask(__name__)
 
@@ -91,14 +86,6 @@ def delete(id):
         db.session.rollback()
         flash("Oops something went wrong")
     return redirect("/")
-
-@app.route('/send_mail', methods=['POST'])
-def send_mail():
-    datas = Post.query.filter_by(status="false")
-    contents = j2_env.get_template('mail.html').render(datas=datas)
-    sendMail(contents)
-
-    return 'Mail Sent!'
 
 class Post(db.Model):
     __table_name__ = 'post'
