@@ -1,4 +1,5 @@
 .DS_Store
 .idea
 *.pyc
-.bulk_ip.py
+bulk_ip.py
+*.db
