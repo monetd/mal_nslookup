@@ -11,31 +11,73 @@
     {% endfor %}
 </div>
 <div class="container">
-    <div class="row">
+    <div class="rows">
         <div class="col">
             <div class="card-deck">
+                {% set active_num = namespace(i=0)  %}
+                {% for post in posts %}
+                    {% if post.dns_server == 'Active' %}
+                        {% set active_num.i = active_num.i + 1 %}
+                    {% endif %}
+                {% endfor %}
                 <div class="card text-white bg-primary mb-4">
-                    <div class="card-header">전체</div>
+                    <div class="card-header">Active 우회</div>
                     <div class="card-body align-items-center d-flex justify-content-center">
-                        <h1 class="card-title" id="card_1">{{posts|length}}</h1>
+                        <h1 class="card-title" id="card_1">{{active_num.i}}</h1>
                     </div>
                 </div>
                 {% set counter = namespace(i=0)  %}
                 {% for post in posts %}
-                    {% if post.status != 'true' %}
+                    {% if post.dns_server == 'Active' and post.status != 'true' %}
                         {% set counter.i = counter.i + 1 %}
                     {% endif %}
                 {% endfor %}
                 <div class="card text-white bg-success mb-4">
-                    <div class="card-header">정상</div>
+                    <div class="card-header">Active 정상</div>
                     <div class="card-body align-items-center d-flex justify-content-center">
-                        <h1 class="card-title" id="card_2">{{ posts|length - counter.i}}</h1>
+                        <h1 class="card-title" id="card_2">{{active_num.i - counter.i}}</h1>
                     </div>
                 </div>
                 <div class="card text-white bg-danger mb-4">
-                    <div class="card-header">장애</div>
+                    <div class="card-header">Active 장애</div>
                     <div class="card-body align-items-center d-flex justify-content-center">
                         <h1 class="card-title" id="card_3">{{counter.i}}</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="rows">
+        <div class="col">
+            <div class="card-deck">
+                {% set standby_num = namespace(i=0)  %}
+                {% for post in posts %}
+                    {% if post.dns_server == 'Standby' %}
+                        {% set standby_num.i = standby_num.i + 1 %}
+                    {% endif %}
+                {% endfor %}
+                <div class="card text-white bg-secondary mb-4">
+                    <div class="card-header">Standby 우회</div>
+                    <div class="card-body align-items-center d-flex justify-content-center">
+                        <h1 class="card-title" id="card_4">{{standby_num.i}}</h1>
+                    </div>
+                </div>
+                {% set counter = namespace(i=0)  %}
+                {% for post in posts %}
+                    {% if post.dns_server == 'Standby' and post.status != 'true' %}
+                        {% set counter.i = counter.i + 1 %}
+                    {% endif %}
+                {% endfor %}
+                <div class="card text-white bg-info mb-4">
+                    <div class="card-header">Standby 정상</div>
+                    <div class="card-body align-items-center d-flex justify-content-center">
+                        <h1 class="card-title" id="card_5">{{ standby_num.i - counter.i}}</h1>
+                    </div>
+                </div>
+                <div class="card text-white bg-warning mb-4">
+                    <div class="card-header">Standby 장애</div>
+                    <div class="card-body align-items-center d-flex justify-content-center">
+                        <h1 class="card-title" id="card_6">{{counter.i}}</h1>
                     </div>
                 </div>
             </div>
@@ -48,6 +90,7 @@
             <table class="table table-sm" id="iptable">
                 <thead>
                 <tr>
+                    <th scope="col">등록서버</th>
                     <th scope="col">우회 IP</th>
                     <th scope="col">등록일자</th>
                     <th scope="col">최근 응답일자</th>
@@ -58,15 +101,24 @@
                 {% for post in posts %}
                 <tr>
                     <td class="hidden_field" id="td_1">{{ post.id }}</td>
-                    <td id="td_2">{{ post.server }}</td>
-                    <td id="td_3">{{ post.reg_date.strftime('%Y-%m-%d %H:%M:%S') }}</td>
-                    <td id="td_4">{{ post.resp_date.strftime('%Y-%m-%d %H:%M:%S') }}</td>
-                    <td id="td_5">
+                    <td id="td_2">
+                        {% if post.dns_server == 'Active' %}
+                        <img id="active_img" class="rounded-circle mx-auto" src="{{ url_for('static', filename='active.png') }}"
+                             width="20px" height="20px">
+                        {% else %}
+                        <img id="standby_img" class="rounded-circle mx-auto" src="{{ url_for('static', filename='standby.png') }}"
+                             width="20px" height="20px">
+                        {% endif %}
+                    </td>
+                    <td id="td_3">{{ post.server }}</td>
+                    <td id="td_4">{{ post.reg_date.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                    <td id="td_5">{{ post.resp_date.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                    <td id="td_6">
                         {% if post.status == 'true' %}
-                        <img class="rounded-circle mx-auto" src="{{ url_for('static', filename='green.png') }}"
+                        <img id="green_img" class="rounded-circle mx-auto" src="{{ url_for('static', filename='green.png') }}"
                              width="32px" height="32px">
                         {% else %}
-                        <img class="rounded-circle mx-auto" src="{{ url_for('static', filename='red.png') }}"
+                        <img id="red_img" class="rounded-circle mx-auto" src="{{ url_for('static', filename='red.png') }}"
                              width="32px" height="32px">
                         {% endif %}
                     </td>

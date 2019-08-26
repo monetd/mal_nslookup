@@ -38,12 +38,12 @@ with conn:
         my_resolver.nameservers = [row[1]]
         time.sleep(0.1)
 
-        row_dt = datetime.datetime.strptime(row[4], '%Y-%m-%d %H:%M:%S')
+        row_dt = datetime.datetime.strptime(row[5], '%Y-%m-%d %H:%M:%S.%f')
 
         try:
             response = my_resolver.query(lookup_url, 'A')
             cur.execute("UPDATE post SET status = 'true' WHERE id=?", (row[0],))
-            cur.execute("UPDATE post SET resp_date = datetime('now','localtime') WHERE id=?", (row[0],))
+            cur.execute("UPDATE post SET resp_date = ? WHERE id=?", (now_dt, row[0],))
         except:
 
             if error_dt > row_dt:         # 현재시간보다 3분전보다 더 늦는다면 Error!
