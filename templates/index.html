@@ -16,30 +16,30 @@
             <div class="card-deck">
                 {% set active_num = namespace(i=0)  %}
                 {% for post in posts %}
-                    {% if post.dns_server == 'Active' %}
+                    {% if post.dns_server == 'Active' and post.Node == '혜화' %}
                         {% set active_num.i = active_num.i + 1 %}
                     {% endif %}
                 {% endfor %}
                 <div class="card text-white bg-primary mb-4">
-                    <div class="card-header">Active 우회</div>
+                    <div class="card-header">혜화 Active 우회</div>
                     <div class="card-body align-items-center d-flex justify-content-center">
                         <h1 class="card-title" id="card_1">{{active_num.i}}</h1>
                     </div>
                 </div>
                 {% set counter = namespace(i=0)  %}
                 {% for post in posts %}
-                    {% if post.dns_server == 'Active' and post.status != 'true' %}
+                    {% if post.dns_server == 'Active' and post.status != 'true' and post.Node == '혜화' %}
                         {% set counter.i = counter.i + 1 %}
                     {% endif %}
                 {% endfor %}
                 <div class="card text-white bg-success mb-4">
-                    <div class="card-header">Active 정상</div>
+                    <div class="card-header">혜화 Active 정상</div>
                     <div class="card-body align-items-center d-flex justify-content-center">
                         <h1 class="card-title" id="card_2">{{active_num.i - counter.i}}</h1>
                     </div>
                 </div>
                 <div class="card text-white bg-danger mb-4">
-                    <div class="card-header">Active 장애</div>
+                    <div class="card-header">혜화 Active 장애</div>
                     <div class="card-body align-items-center d-flex justify-content-center">
                         <h1 class="card-title" id="card_3">{{counter.i}}</h1>
                     </div>
@@ -52,32 +52,68 @@
             <div class="card-deck">
                 {% set standby_num = namespace(i=0)  %}
                 {% for post in posts %}
-                    {% if post.dns_server == 'Standby' %}
+                    {% if post.dns_server == 'Standby' and post.Node == '혜화'%}
                         {% set standby_num.i = standby_num.i + 1 %}
                     {% endif %}
                 {% endfor %}
-                <div class="card text-white bg-secondary mb-4">
-                    <div class="card-header">Standby 우회</div>
+                <div class="card text-white bg-primary mb-4">
+                    <div class="card-header">혜화 Standby 우회</div>
                     <div class="card-body align-items-center d-flex justify-content-center">
                         <h1 class="card-title" id="card_4">{{standby_num.i}}</h1>
                     </div>
                 </div>
                 {% set counter = namespace(i=0)  %}
                 {% for post in posts %}
-                    {% if post.dns_server == 'Standby' and post.status != 'true' %}
+                    {% if post.dns_server == 'Standby' and post.status != 'true' and post.Node == '혜화' %}
                         {% set counter.i = counter.i + 1 %}
                     {% endif %}
                 {% endfor %}
-                <div class="card text-white bg-info mb-4">
-                    <div class="card-header">Standby 정상</div>
+                <div class="card text-white bg-success mb-4">
+                    <div class="card-header">혜화 Standby 정상</div>
                     <div class="card-body align-items-center d-flex justify-content-center">
                         <h1 class="card-title" id="card_5">{{ standby_num.i - counter.i}}</h1>
                     </div>
                 </div>
-                <div class="card text-white bg-warning mb-4">
-                    <div class="card-header">Standby 장애</div>
+                <div class="card text-white bg-danger mb-4">
+                    <div class="card-header">혜화 Standby 장애</div>
                     <div class="card-body align-items-center d-flex justify-content-center">
                         <h1 class="card-title" id="card_6">{{counter.i}}</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="rows">
+        <div class="col">
+            <div class="card-deck">
+                {% set standby_num = namespace(i=0)  %}
+                {% for post in posts %}
+                    {% if post.dns_server == 'Standby' and post.Node == '구로' %}
+                        {% set standby_num.i = standby_num.i + 1 %}
+                    {% endif %}
+                {% endfor %}
+                <div class="card text-white bg-primary mb-4">
+                    <div class="card-header">구로 Standby 우회</div>
+                    <div class="card-body align-items-center d-flex justify-content-center">
+                        <h1 class="card-title" id="card_7">{{standby_num.i}}</h1>
+                    </div>
+                </div>
+                {% set counter = namespace(i=0)  %}
+                {% for post in posts %}
+                    {% if post.dns_server == 'Standby' and post.status != 'true' and post.Node == '구로' %}
+                        {% set counter.i = counter.i + 1 %}
+                    {% endif %}
+                {% endfor %}
+                <div class="card text-white bg-success mb-4">
+                    <div class="card-header">구로 Standby 정상</div>
+                    <div class="card-body align-items-center d-flex justify-content-center">
+                        <h1 class="card-title" id="card_8">{{ standby_num.i - counter.i}}</h1>
+                    </div>
+                </div>
+                <div class="card text-white bg-danger mb-4">
+                    <div class="card-header">구로 Standby 장애</div>
+                    <div class="card-body align-items-center d-flex justify-content-center">
+                        <h1 class="card-title" id="card_9">{{counter.i}}</h1>
                     </div>
                 </div>
             </div>
@@ -90,6 +126,7 @@
             <table class="table table-sm" id="iptable">
                 <thead>
                 <tr>
+                    <th scope="col">노드</th>
                     <th scope="col">등록서버</th>
                     <th scope="col">우회 IP</th>
                     <th scope="col">등록일자</th>
@@ -102,6 +139,9 @@
                 <tr>
                     <td class="hidden_field" id="td_1">{{ post.id }}</td>
                     <td id="td_2">
+                        {{ post.Node }}
+                    </td>
+                    <td id="td_3">
                         {% if post.dns_server == 'Active' %}
                         <img id="active_img" class="rounded-circle mx-auto" src="{{ url_for('static', filename='active.png') }}"
                              width="20px" height="20px">
@@ -110,10 +150,10 @@
                              width="20px" height="20px">
                         {% endif %}
                     </td>
-                    <td id="td_3">{{ post.server }}</td>
-                    <td id="td_4">{{ post.reg_date.strftime('%Y-%m-%d %H:%M:%S') }}</td>
-                    <td id="td_5">{{ post.resp_date.strftime('%Y-%m-%d %H:%M:%S') }}</td>
-                    <td id="td_6">
+                    <td id="td_4">{{ post.server }}</td>
+                    <td id="td_5">{{ post.reg_date.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                    <td id="td_6">{{ post.resp_date.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                    <td id="td_7">
                         {% if post.status == 'true' %}
                         <img id="green_img" class="rounded-circle mx-auto" src="{{ url_for('static', filename='green.png') }}"
                              width="32px" height="32px">

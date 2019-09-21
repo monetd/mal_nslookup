@@ -78,7 +78,8 @@ def add():
         try:
             ip = request.form['ip']
             dns_server_text = request.form['dns_server']
-            post = Post(server=ip, dns_server=dns_server_text)
+            node = request.form['node']
+            post = Post(server=ip, dns_server=dns_server_text, Node=node)
             db.session.add(post)
             db.session.commit()
         except:
@@ -110,6 +111,7 @@ class Post(db.Model):
     dns_server = db.Column(db.Text, nullable=False)
     reg_date = db.Column(db.DateTime, default=datetime.strptime(now_dt_str,'%Y-%m-%d %H:%M:%S'))
     resp_date = db.Column(db.DateTime, default=datetime.strptime(now_dt_str,'%Y-%m-%d %H:%M:%S'))
+    Node = db.Column(db.Text, nullable=False)
 
 class Setting(db.Model):
     __table_name__ = "setting"

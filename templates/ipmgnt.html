@@ -6,6 +6,11 @@
         <div class="col">
             <form id="ipform" class="form-inline ip_form" action="{{ url_for('add') }}" method="POST">
                 <div class="form-group">
+                    <label for="node_text">노드</label>
+                    <select class="form-control mx-sm-3" id="node_text" name="node">
+                        <option>구로</option>
+                        <option>혜화</option>
+                    </select>
                     <label for="dns_server_text">등록서버</label>
                     <select class="form-control mx-sm-3" id="dns_server_text" name="dns_server">
 	                    <option>Active</option>
@@ -28,6 +33,7 @@
             <table class="table table-sm ipmgnt_table">
                 <thead>
                 <tr>
+                    <th scope="col">노드</th>
                     <th scope="col">등록서버</th>
                     <th scope="col">우회 IP</th>
                     <th scope="col">등록일자</th>
@@ -39,6 +45,7 @@
                 <tbody>
                 {% for post in posts %}
                 <tr>
+                    <td>{{ post.Node }}</td>
                     <td>
                         {% if post.dns_server == 'Active' %}
                         <img class="rounded-circle mx-auto" src="{{ url_for('static', filename='active.png') }}"
