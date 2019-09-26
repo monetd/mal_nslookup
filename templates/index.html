@@ -16,30 +16,30 @@
             <div class="card-deck">
                 {% set active_num = namespace(i=0)  %}
                 {% for post in posts %}
-                    {% if post.dns_server == 'Active' and post.Node == '혜화' %}
+                    {% if post.dns_server == 'Active' and post.Node == '(구)혜화' %}
                         {% set active_num.i = active_num.i + 1 %}
                     {% endif %}
                 {% endfor %}
                 <div class="card text-white bg-primary mb-4">
-                    <div class="card-header">혜화 Active 우회</div>
+                    <div class="card-header">(구)혜화 Active 우회</div>
                     <div class="card-body align-items-center d-flex justify-content-center">
                         <h1 class="card-title" id="card_1">{{active_num.i}}</h1>
                     </div>
                 </div>
                 {% set counter = namespace(i=0)  %}
                 {% for post in posts %}
-                    {% if post.dns_server == 'Active' and post.status != 'true' and post.Node == '혜화' %}
+                    {% if post.dns_server == 'Active' and post.status != 'true' and post.Node == '(구)혜화' %}
                         {% set counter.i = counter.i + 1 %}
                     {% endif %}
                 {% endfor %}
                 <div class="card text-white bg-success mb-4">
-                    <div class="card-header">혜화 Active 정상</div>
+                    <div class="card-header">(구)혜화 Active 정상</div>
                     <div class="card-body align-items-center d-flex justify-content-center">
                         <h1 class="card-title" id="card_2">{{active_num.i - counter.i}}</h1>
                     </div>
                 </div>
                 <div class="card text-white bg-danger mb-4">
-                    <div class="card-header">혜화 Active 장애</div>
+                    <div class="card-header">(구)혜화 Active 장애</div>
                     <div class="card-body align-items-center d-flex justify-content-center">
                         <h1 class="card-title" id="card_3">{{counter.i}}</h1>
                     </div>
@@ -52,30 +52,30 @@
             <div class="card-deck">
                 {% set standby_num = namespace(i=0)  %}
                 {% for post in posts %}
-                    {% if post.dns_server == 'Standby' and post.Node == '혜화'%}
+                    {% if post.dns_server == 'Active' and post.Node == '(신)혜화'%}
                         {% set standby_num.i = standby_num.i + 1 %}
                     {% endif %}
                 {% endfor %}
                 <div class="card text-white bg-primary mb-4">
-                    <div class="card-header">혜화 Standby 우회</div>
+                    <div class="card-header">(신)혜화 Active 우회</div>
                     <div class="card-body align-items-center d-flex justify-content-center">
                         <h1 class="card-title" id="card_4">{{standby_num.i}}</h1>
                     </div>
                 </div>
                 {% set counter = namespace(i=0)  %}
                 {% for post in posts %}
-                    {% if post.dns_server == 'Standby' and post.status != 'true' and post.Node == '혜화' %}
+                    {% if post.dns_server == 'Active' and post.status != 'true' and post.Node == '(신)혜화' %}
                         {% set counter.i = counter.i + 1 %}
                     {% endif %}
                 {% endfor %}
                 <div class="card text-white bg-success mb-4">
-                    <div class="card-header">혜화 Standby 정상</div>
+                    <div class="card-header">(신)혜화 Active 정상</div>
                     <div class="card-body align-items-center d-flex justify-content-center">
                         <h1 class="card-title" id="card_5">{{ standby_num.i - counter.i}}</h1>
                     </div>
                 </div>
                 <div class="card text-white bg-danger mb-4">
-                    <div class="card-header">혜화 Standby 장애</div>
+                    <div class="card-header">(신)혜화 Active 장애</div>
                     <div class="card-body align-items-center d-flex justify-content-center">
                         <h1 class="card-title" id="card_6">{{counter.i}}</h1>
                     </div>
@@ -88,30 +88,30 @@
             <div class="card-deck">
                 {% set standby_num = namespace(i=0)  %}
                 {% for post in posts %}
-                    {% if post.dns_server == 'Standby' and post.Node == '구로' %}
+                    {% if post.dns_server == 'Standby' and post.Node == '(신)구로' %}
                         {% set standby_num.i = standby_num.i + 1 %}
                     {% endif %}
                 {% endfor %}
                 <div class="card text-white bg-primary mb-4">
-                    <div class="card-header">구로 Standby 우회</div>
+                    <div class="card-header">(신)구로 Standby 우회</div>
                     <div class="card-body align-items-center d-flex justify-content-center">
                         <h1 class="card-title" id="card_7">{{standby_num.i}}</h1>
                     </div>
                 </div>
                 {% set counter = namespace(i=0)  %}
                 {% for post in posts %}
-                    {% if post.dns_server == 'Standby' and post.status != 'true' and post.Node == '구로' %}
+                    {% if post.dns_server == 'Standby' and post.status != 'true' and post.Node == '(신)구로' %}
                         {% set counter.i = counter.i + 1 %}
                     {% endif %}
                 {% endfor %}
                 <div class="card text-white bg-success mb-4">
-                    <div class="card-header">구로 Standby 정상</div>
+                    <div class="card-header">(신)구로 Standby 정상</div>
                     <div class="card-body align-items-center d-flex justify-content-center">
                         <h1 class="card-title" id="card_8">{{ standby_num.i - counter.i}}</h1>
                     </div>
                 </div>
                 <div class="card text-white bg-danger mb-4">
-                    <div class="card-header">구로 Standby 장애</div>
+                    <div class="card-header">(신)구로 Standby 장애</div>
                     <div class="card-body align-items-center d-flex justify-content-center">
                         <h1 class="card-title" id="card_9">{{counter.i}}</h1>
                     </div>

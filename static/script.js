@@ -19,16 +19,12 @@ function refreshData(soundFlag) {
             var numHHActSucc = 0;
             var numHHActFail = 0;
 
-            var numHHStandby = 0;
-            var numHHStdSucc = 0;
-            var numHHStdFail = 0;
+            var numHHActive_new = 0;
+            var numHHActSucc_new = 0;
+            var numHHActFail_new = 0;
 
-            var numGRActive = 0;
-            var numGRActSucc = 0;
-            var numGRActFail = 0;
-
-            var numGRStandby = 0;
-            var numGRStdSucc = 0;
+            var numGRStandby_new = 0;
+            var numGRStdSucc_new = 0;
             var numGRStdFail = 0;
 
             for(i=0; i<numData; i++) {
@@ -37,22 +33,20 @@ function refreshData(soundFlag) {
 
                 $("#td_2").parent().parent().children().eq(i).find("#td_2").text(data[i].Node);
 
-                if (data[i].dns_server == "Active") {
+                if (data[i].dns_server == "Active") {       // Active 일 경우
                     $("#td_3").parent().parent().children().eq(i).find("#active_img").attr('src', '/static/active.png');
 
-                    // 혜화 일 경우
-                    if (data[i].Node == "혜화") {
+                    // (신)혜화 일 경우
+                    if (data[i].Node == "(신)혜화") {
+                        numHHActive_new = numHHActive_new + 1;
+                    } else if (data[i].Node == "(구)혜화") {    // (구)혜화 일 경우
                         numHHActive = numHHActive + 1;
-                    } else {    // 구로 일 경우
-                        numGRActive = numGRActive + 1;
                     }
-                } else {
+                } else {                                    // Standby 일 경우 (구로)
                     $("#td_3").parent().parent().children().eq(i).find("#standby_img").attr('src', '/static/standby.png');
 
                     // 혜화 일 경우
-                    if (data[i].Node == "혜화") {
-                        numHHStandby = numHHStandby + 1;
-                    } else {    // 구로 일 경우
+                    if (data[i].Node == "(신)구로") {
                         numGRStandby = numGRStandby + 1;
                     }
                 }
@@ -63,31 +57,27 @@ function refreshData(soundFlag) {
 
                 if (data[i].status == "true") {
                     $("#td_7").parent().parent().children().eq(i).find("#green_img").attr('src', '/static/green.png');
-                    if (data[i].dns_server == "Active") {
-                        if (data[i].Node == "혜화") {
+                    if (data[i].dns_server == "Active") {    // Active 일 경우
+                        if (data[i].Node == "(신)혜화") {      // (신)혜화 일 경우
+                            numHHActSucc_new = numHHActSucc_new + 1;
+                        } else if(data[i].Node == "(구)혜화") {                            // (구)혜화 일 경우
                             numHHActSucc = numHHActSucc + 1;
-                        } else {
-                            numGRActSucc = numGRActSucc + 1;
                         }
                     } else {
-                        if (data[i].Node == "혜화") {
-                            numHHStdSucc = numHHStdSucc + 1;
-                        } else {
+                        if (data[i].Node == "(신)구로") {      // Standby 일 경우
                             numGRStdSucc = numGRStdSucc + 1;
                         }
                     }
                 } else {
                     $("#td_7").parent().parent().children().eq(i).find("#red_img").attr('src', '/static/red.png');
-                    if (data[i].dns_server == "Active") {
-                        if (data[i].Node == "혜화") {
+                    if (data[i].dns_server == "Active") {   // Active 일 경우
+                        if (data[i].Node == "(신)혜화") {     // (신)혜화 일 경우
                             numHHActFail = numHHActFail + 1;
-                        } else {
-                            numGRActFail = numGRActFail + 1;
+                        } else {                            // (구)혜화 일 경우
+                            numHHActFail_new = numHHActFail_new + 1;
                         }
-                    } else {
-                        if (data[i].Node == "혜화") {
-                            numHHStdFail = numHHStdFail + 1;
-                        } else {
+                    } else {                                // Standby 일 경우
+                        if (data[i].Node == "(구)구로") {
                             numGRStdFail = numGRStdFail + 1;
                         }
                     }
